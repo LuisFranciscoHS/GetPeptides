@@ -110,7 +110,7 @@ public class PeptideMapping {
      * @throws InterruptedException exception thrown if a threading issue
      * occurred while reading the fasta file
      */
-    public static void example() throws IOException, InterruptedException {
+    public static void main(String args[]) throws IOException, InterruptedException {
 
         System.out.println(System.getProperty("user.dir"));
         try {
