@@ -59,7 +59,58 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Add your dependencies here -->
+        <!-- The CompOmics utilities package -->
+        <dependency>
+            <groupId>com.compomics</groupId>
+            <artifactId>utilities</artifactId>
+            <version>4.8.9</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-math</artifactId>
+                    <groupId>commons-math</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ssj</artifactId>
+                    <groupId>umontreal.iro.lecuyer.gof</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>msv</artifactId>
+                    <groupId>msv</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>relaxngDatatype</artifactId>
+                    <groupId>msv</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xsdlib</artifactId>
+                    <groupId>msv</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>isorelax</artifactId>
+                    <groupId>msv</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>xxindex</artifactId>
+                    <groupId>psidev.psi.tools</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>ols-dialog</artifactId>
+                    <groupId>no.uib</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
 
     </dependencies>
@@ -156,6 +207,7 @@
             <snapshots>
             </snapshots>
         </repository>
+
     </repositories>
 
     <!--Configures the distribution to nexus repository. mvn:deploy -->
