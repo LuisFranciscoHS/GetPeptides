@@ -29,7 +29,8 @@ public class PeptideToProteinMapper {
 
     private enum Arguments {
         fasta,
-        peptidelist
+        peptidelist,
+        simple
     }
 
     public static void main(String args[]) throws JSAPException {
@@ -38,7 +39,8 @@ public class PeptideToProteinMapper {
         SimpleJSAP jsap = new SimpleJSAP(PeptideToProteinMapper.class.getName(), "Maps a list of peptides to UniProt accessions and filters to only proteotypic peptides and proteins in Reactome.",
                 new Parameter[]{
                         new FlaggedOption(Arguments.fasta.toString(), JSAP.STRING_PARSER, "./resources/uniprot-all.fasta", JSAP.REQUIRED, 'f', Arguments.fasta.toString(), "Contains the reference protein sequences"),
-                        new FlaggedOption(Arguments.peptidelist.toString(), JSAP.STRING_PARSER, "./resources/PTPs_GPMDB.csv", JSAP.REQUIRED, 'l', Arguments.peptidelist.toString(), "Peptide list")
+                        new FlaggedOption(Arguments.peptidelist.toString(), JSAP.STRING_PARSER, "./resources/PTPs_GPMDB.csv", JSAP.REQUIRED, 'l', Arguments.peptidelist.toString(), "Peptide list"),
+                        new QualifiedSwitch(Arguments.simple.toString(), JSAP.BOOLEAN_PARSER, null, JSAP.NOT_REQUIRED, 's', Arguments.simple.toString(), "Simple Peptide list")
                 }
         );
 
@@ -82,7 +84,11 @@ public class PeptideToProteinMapper {
         System.out.println("Filtering peptide list...");
         mapping = new HashMap<>();
         try {
+            FileWriter simple = null;
             FileWriter output = new FileWriter("./resources/PTPs.csv");
+            if (config.getBoolean(Arguments.simple.toString())) {
+                simple = new FileWriter("./resources/simple_PTPs.csv");
+            }
             FileWriter stats = new FileWriter("./resources/Stats.txt");
 
             System.out.println("Reading peptide list from " + config.getString(Arguments.peptidelist.toString()));
@@ -109,6 +115,9 @@ public class PeptideToProteinMapper {
                     for (String p : mapping.get(protein)) {
                         output.write(p + "\t");
                         peptidesFound++;
+                        if (config.getBoolean(Arguments.simple.toString())) {
+                            simple.write(p + "\n");
+                        }
                     }
                     output.write("\n");
                 }
@@ -117,6 +126,8 @@ public class PeptideToProteinMapper {
             stats.write("Proteins covered: " + proteinsCovered + "\n");
             stats.write("Proteotypic peptides found: " + peptidesFound);
 
+
+            simple.close();
             stats.close();
             reader.close();
             output.close();

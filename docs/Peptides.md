@@ -14,7 +14,9 @@ The list of PTPs can be created in many different ways. The selected methods are
 ~~~~
 ftp://ftp.thegpm.org/projects/xhunter/libs/eukaryotes/peptide/human_chromosomes/
 ~~~~
-* Query uniprot to get the corresponding protein for each PTP.
+* Map all the peptides to Uniprot accessions using PeptideMapper.
+* Filter to only peptides mapped to proteins in Reactome 
+* Filter to only PTP
 
 #### Method 2: Peptide Atlas 
 
@@ -36,6 +38,13 @@ The Peptide Sets contained in ProteomeTools are explained [here](http://www.prot
 The set contains 124,875 tryptic peptides covering 15,855 protein coding human genes (by SwissProt) that have been frequently and confidently identified in ProteomicsDB.org. This data is designated as “TUM_first_pool” in PRIDE.
 
 * Download the PTPs list from the [PRIDE Repository](http://www.ebi.ac.uk/pride/archive/projects/PXD004732)
+
+#### Get Reactome identifiers
+
+~~~~
+MATCH (i:DatabaseIdentifier) 
+RETURN DISTINCT i.identifier ORDER BY i.identifier
+~~~~
 
 # Predictors
 
